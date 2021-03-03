@@ -67,11 +67,16 @@ public class UploadAndDownload {
                 if (outputStream != null) {
                     outputStream.close();
                 }
-                if (fileInputStream != null) {
-                    fileInputStream.close();
-                }
             } catch (IOException e) {
                 e.printStackTrace();
+            }finally {
+                if (fileInputStream != null) {
+                    try {
+                        fileInputStream.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         }
 
