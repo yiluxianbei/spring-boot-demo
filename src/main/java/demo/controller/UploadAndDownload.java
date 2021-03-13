@@ -10,22 +10,26 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.List;
 
 @RestController
 public class UploadAndDownload {
 
     /**
+     * 上传文件，支持上传多个文件
      * @param uploadFile 传过来的参数名须和方法形参一样，否则为空
      * @return
      */
     @PostMapping("/upload")
-    public String upload(MultipartFile uploadFile) {
+    public String upload(List<MultipartFile> uploadFile) {
         //对应的是calsses目录
         String path = this.getClass().getClassLoader().getResource("").getPath();
-        String originalFilename = uploadFile.getOriginalFilename();
-        File file = new File(path + originalFilename);
         try {
-            uploadFile.transferTo(file);
+        for (MultipartFile multipartFile : uploadFile) {
+            String originalFilename = multipartFile.getOriginalFilename();
+            File file = new File(path + originalFilename);
+            multipartFile.transferTo(file);
+        }
         } catch (IOException e) {
             e.printStackTrace();
         }
