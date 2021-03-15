@@ -45,7 +45,7 @@ public class UploadAndDownload {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        response.setHeader("Content-Disposition", "attachment;fileName=" + fileName + ";fileName*=utf-8''" + fileName);
+        response.setHeader("Content-Disposition", "attachment;filename=" + fileName + ";filename*=utf-8''" + fileName);
         response.setContentType("application/octet-stream");
         response.setContentLength((int) file.length());
         FileInputStream fileInputStream = null;
