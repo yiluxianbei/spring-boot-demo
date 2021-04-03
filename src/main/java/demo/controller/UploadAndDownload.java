@@ -6,10 +6,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 
 @RestController
@@ -17,19 +20,33 @@ public class UploadAndDownload {
 
     /**
      * 上传文件，支持上传多个文件
-     * @param uploadFile 传过来的参数名须和方法形参一样，否则为空
+     * @param file 传过来的参数名须和方法形参一样，否则为空
      * @return
      */
     @PostMapping("/upload")
-    public String upload(List<MultipartFile> uploadFile) {
+    public String upload(List<MultipartFile> file, HttpServletRequest request) {
+        Enumeration<String> headerNames = request.getHeaderNames();
+        while (headerNames.hasMoreElements()) {
+            String nextElement = headerNames.nextElement();
+            System.out.println(nextElement+"====="+request.getHeader(nextElement));
+        }
+        System.out.println("********************");
+        Enumeration<String> parameterNames = request.getParameterNames();
+        while (parameterNames.hasMoreElements()) {
+            String nextElement = parameterNames.nextElement();
+            System.out.println(nextElement+"========"+request.getParameter(nextElement));
+        }
         //对应的是calsses目录
         String path = this.getClass().getClassLoader().getResource("").getPath();
         try {
-        for (MultipartFile multipartFile : uploadFile) {
-            String originalFilename = multipartFile.getOriginalFilename();
-            File file = new File(path + originalFilename);
-            multipartFile.transferTo(file);
-        }
+            if (file !=null) {
+
+                for (MultipartFile multipartFile : file) {
+                    String originalFilename = multipartFile.getOriginalFilename();
+                    File localFile = new File(path + originalFilename);
+                    multipartFile.transferTo(localFile);
+                }
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
