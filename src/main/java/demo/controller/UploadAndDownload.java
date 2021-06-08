@@ -1,5 +1,7 @@
 package demo.controller;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,15 +11,15 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.net.URL;
 import java.net.URLEncoder;
-import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
 @RestController
 public class UploadAndDownload {
 
+    @Value("classpath:test.xlsx")
+    private Resource resource;
     /**
      * 上传文件，支持上传多个文件
      * @param file 传过来的参数名须和方法形参一样，否则为空
@@ -54,15 +56,13 @@ public class UploadAndDownload {
     }
 
     @GetMapping("/download")
-    public void download(HttpServletResponse response) {
-        //当前项目路径
-        String path = this.getClass().getClassLoader().getResource("").getPath();
+    public void download(HttpServletResponse response) throws IOException {
         //要下载的服务器上的文件
-        File file = new File(path + "新楼盘.xlsx");
+        File file = resource.getFile();
         //返回给客户端的文件名
         String fileName = "";
         try {
-            fileName = URLEncoder.encode("新楼盘.xlsx", "UTF-8");
+            fileName = URLEncoder.encode("test.xlsx", "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
