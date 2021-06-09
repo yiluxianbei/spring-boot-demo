@@ -1,4 +1,4 @@
-package demo.controller.response;
+package demo.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
