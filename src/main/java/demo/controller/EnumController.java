@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class EnumController {
 
     /**
-     * 前端传枚举的顺序，
-     * 返回给前端的枚举也是枚举的顺序
+     * 前端传值参照枚举类中反序列化规则，
+     * 返回给前端的值参照枚举类中序列化规则
      * @param testEnumRequest
      * @return
      */
@@ -20,7 +20,4 @@ public class EnumController {
         return new TestEnumRequest(CheckState.CANCEL);
     }
 
-    public static void main(String[] args) {
-        System.out.println(CheckState.CANCEL.ordinal());
-    }
 }

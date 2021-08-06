@@ -41,6 +41,26 @@ public enum CheckState {
         this.desc = desc;
     }
 
+    /**
+     * 自定义json反序列化成对象的规则，这里是从枚举名序列化成对象
+     * @param value
+     * @return
+     */
+//    @JsonCreator
+//    public static CheckState fromValue(String value) {
+//        return CheckState.valueOf(value);
+//    }
+    /**
+     * 自定义json反序列化成对象的规则，这里是从枚举顺序序列化成对象(不配置，默认是这中方式)
+     */
+    @JsonCreator
+    public static CheckState fromValue(int value) {
+        return CheckState.values()[value];
+    }
+    /**
+     * 自定义对象序列化成json的值，这里是返回枚举的顺序
+     * @return
+     */
     @JsonValue
     public int toValue() {
         return this.ordinal();
