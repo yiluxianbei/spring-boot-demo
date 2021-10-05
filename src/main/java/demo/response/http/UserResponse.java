@@ -27,5 +27,9 @@ public class UserResponse implements Serializable {
 
     private List<Teacher> teachers;
 
+    /**
+     * 前端传值参照枚举类中反序列化规则，
+     * 返回给前端的值参照枚举类中序列化规则
+     */
     private CheckState checkState;
 }
