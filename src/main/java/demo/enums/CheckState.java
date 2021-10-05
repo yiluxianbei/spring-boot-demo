@@ -51,14 +51,14 @@ public enum CheckState {
 //        return CheckState.valueOf(value);
 //    }
     /**
-     * 自定义json反序列化成对象的规则，这里是从枚举顺序序列化成对象(不配置，默认是这中方式)
+     * 自定义json反序列化成对象的规则，这里是从枚举顺序序列化成对象(不配置，默认是这种方式)
      */
     @JsonCreator
     public static CheckState fromValue(int value) {
         return CheckState.values()[value];
     }
     /**
-     * 自定义对象序列化成json的值，这里是返回枚举的顺序
+     * 自定义对象序列化成json的值，这里是返回枚举的顺序,默认是字符串
      * @return
      */
     @JsonValue

@@ -19,6 +19,12 @@
         <artifactId>lombok</artifactId>
         <version>1.16.16</version>
     </dependency>
+<!--接口采用xml格式交互时，需添加此依赖    -->
+    <dependency>
+        <groupId>com.fasterxml.jackson.dataformat</groupId>
+        <artifactId>jackson-dataformat-xml</artifactId>
+        <version>2.11.4</version>
+    </dependency>
     <dependency>
         <groupId>org.apache.commons</groupId>
         <artifactId>commons-collections4</artifactId>
